@@ -20,15 +20,15 @@ const isValidObjectId = function (ObjectId) {
 
 
 
-      
-// create intern.....................................................................
+
+// create book.....................................................................
 
 const createBook = async function (req, res) {
   try {
     const data = req.body;
-   
+
     if (!(Object.keys(data).length > 0)) { return res.status(400).send({ status: false, message: "Invalid request Please provide details of an user" }) }
-    const { title, excerpt, userId, ISBN, category, subcategory,bookCover, reviews, isDeleted, releasedAt } = data;
+    const { title, excerpt, userId, ISBN, category, subcategory, bookCover, reviews, isDeleted, releasedAt } = data;
     if (!isValid(title)) { return res.status(400).send({ status: false, message: 'Book Title is required' }) }
 
     const bookTitle = await bookModel.findOne({ title });
@@ -70,7 +70,7 @@ const createBook = async function (req, res) {
       bookCover: newBookData.bookCover,
       category: newBookData.category,
       subcategory: newBookData.subcategory,
-      bookCover:newBookData.bookCover,
+      bookCover: newBookData.bookCover,
       reviews: newBookData.reviews,
       releasedAt: newBookData.releasedAt
     }
@@ -199,19 +199,9 @@ const updateBooks = async (req, res) => {
 
     if (ifExist.isDeleted == false) {
 
-
-      //   let newTitle = data.title
-      //   let newExcerpt = data.excerpt
-      //   let newDate = data.releasedAt
-      //   let isbn = data.ISBN
-      //   let newCategory = data.category
-      //   let newSubCategory = data.subcategory
-
       let updatedBook = await bookModel.findByIdAndUpdate({ _id: Id },
         {
           ...data
-          // $set: { title: newTitle, excerpt: newExcerpt, releasedAt: newDate, ISBN: isbn, category: newCategory },
-          // $push: { subcategory: newSubCategory },
         },
         { new: true })
 
